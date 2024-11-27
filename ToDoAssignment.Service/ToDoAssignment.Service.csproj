@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -17,6 +23,11 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\ToDoAssignment.Models\ToDoAssignment.Models.csproj" />
     <ProjectReference Include="..\ToDoAssignment.Repository\ToDoAssignment.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Authentications\Validations\" />
+    <Folder Include="Authentications\Rules\" />
   </ItemGroup>
 
 </Project>

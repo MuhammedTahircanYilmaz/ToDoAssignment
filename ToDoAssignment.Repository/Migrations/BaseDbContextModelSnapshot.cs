@@ -155,14 +155,12 @@ namespace ToDoAssignment.Repository.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.Category", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Categories.Entity.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Category_Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -177,20 +175,27 @@ namespace ToDoAssignment.Repository.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Time_Updated");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("User_Id");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.ToDo", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Todos.Entity.ToDo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("To_Do_Id");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Category_Id");
 
                     b.Property<bool>("Completed")
@@ -205,6 +210,9 @@ namespace ToDoAssignment.Repository.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("Date_Ended");
+
+                    b.Property<bool>("IsUpdateable")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Priority")
                         .HasColumnType("int")
@@ -241,7 +249,7 @@ namespace ToDoAssignment.Repository.Migrations
                     b.ToTable("ToDos", (string)null);
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.User", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Users.Entity.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -317,7 +325,7 @@ namespace ToDoAssignment.Repository.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ToDoAssignment.Models.Entities.User", null)
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -326,7 +334,7 @@ namespace ToDoAssignment.Repository.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ToDoAssignment.Models.Entities.User", null)
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -341,7 +349,7 @@ namespace ToDoAssignment.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ToDoAssignment.Models.Entities.User", null)
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,22 +358,33 @@ namespace ToDoAssignment.Repository.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ToDoAssignment.Models.Entities.User", null)
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.ToDo", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Categories.Entity.Category", b =>
                 {
-                    b.HasOne("ToDoAssignment.Models.Entities.Category", "Category")
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", "User")
+                        .WithMany("Categories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ToDoAssignment.Models.Todos.Entity.ToDo", b =>
+                {
+                    b.HasOne("ToDoAssignment.Models.Categories.Entity.Category", "Category")
                         .WithMany("ToDos")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ToDoAssignment.Models.Entities.User", "User")
+                    b.HasOne("ToDoAssignment.Models.Users.Entity.User", "User")
                         .WithMany("ToDos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -376,13 +395,15 @@ namespace ToDoAssignment.Repository.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.Category", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Categories.Entity.Category", b =>
                 {
                     b.Navigation("ToDos");
                 });
 
-            modelBuilder.Entity("ToDoAssignment.Models.Entities.User", b =>
+            modelBuilder.Entity("ToDoAssignment.Models.Users.Entity.User", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("ToDos");
                 });
 #pragma warning restore 612, 618

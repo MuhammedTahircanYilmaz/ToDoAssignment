@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{81B55002-D2D3-4039-88C7-EBE3A3B7FFD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{81B55002-D2D3-4039-88C7-EBE3A3B7FFD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAssignment.Models", "ToDoAssignment.Models\ToDoAssignment.Models.csproj", "{ED0D1F63-5BC9-4FD3-BDB6-3E6EF4744A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAssignment.Models", "ToDoAssignment.Models\ToDoAssignment.Models.csproj", "{ED0D1F63-5BC9-4FD3-BDB6-3E6EF4744A9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAssignment.Repository", "ToDoAssignment.Repository\ToDoAssignment.Repository.csproj", "{6B2281E2-3621-4A8C-99C9-7AE8511DC28E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAssignment.Repository", "ToDoAssignment.Repository\ToDoAssignment.Repository.csproj", "{6B2281E2-3621-4A8C-99C9-7AE8511DC28E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAssignment.Service", "ToDoAssignment.Service\ToDoAssignment.Service.csproj", "{750D3B36-5CEE-4ED0-A566-2BF30ACC085C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAssignment.Service", "ToDoAssignment.Service\ToDoAssignment.Service.csproj", "{750D3B36-5CEE-4ED0-A566-2BF30ACC085C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAssignment.WebApi", "ToDoAssignment.WebApi\ToDoAssignment.WebApi.csproj", "{BDABF95F-9342-4D33-B18D-FDAC9455BC3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoAssignment.WebApi", "ToDoAssignment.WebApi\ToDoAssignment.WebApi.csproj", "{BDABF95F-9342-4D33-B18D-FDAC9455BC3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{44B5784F-317F-4B6F-A72F-52FA51EF68EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoAssignment.Service.Test", "ToDoAssignment.Service.Test\ToDoAssignment.Service.Test.csproj", "{219EFF69-885B-48CB-AB72-5C30BAD4C9AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +43,16 @@ Global
 		{BDABF95F-9342-4D33-B18D-FDAC9455BC3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDABF95F-9342-4D33-B18D-FDAC9455BC3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDABF95F-9342-4D33-B18D-FDAC9455BC3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{219EFF69-885B-48CB-AB72-5C30BAD4C9AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{219EFF69-885B-48CB-AB72-5C30BAD4C9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{219EFF69-885B-48CB-AB72-5C30BAD4C9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{219EFF69-885B-48CB-AB72-5C30BAD4C9AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{219EFF69-885B-48CB-AB72-5C30BAD4C9AA} = {44B5784F-317F-4B6F-A72F-52FA51EF68EF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {531AF595-5257-41D2-905C-AEEDF41C45DE}

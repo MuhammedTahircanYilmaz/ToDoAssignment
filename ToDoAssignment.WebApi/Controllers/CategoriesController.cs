@@ -2,17 +2,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ToDoAssignment.Models.Dtos.Categories.Requests;
-using ToDoAssignment.Service.Services.Categories.Abstracts;
+using ToDoAssignment.Models.Categories.Dtos.Requests;
+using ToDoAssignment.Service.Categories.Abstracts;
 
 namespace ToDoAssignment.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class CategoriesController(ICategoryService categoryService) : ControllerBase
 {
+
     [HttpPost("add")]
-    [Authorize]
     public IActionResult Add([FromBody] AddCategoryRequestDto dto)
     {
         string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
@@ -21,7 +22,6 @@ public class CategoriesController(ICategoryService categoryService) : Controller
     }
 
     [HttpPut("update")]
-    [Authorize]
     public IActionResult Update([FromBody] UpdateCategoryRequestDto dto)
     {
         string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
@@ -30,10 +30,10 @@ public class CategoriesController(ICategoryService categoryService) : Controller
     }
 
     [HttpDelete("delete/{id:guid}")]
-    [Authorize]
     public IActionResult Delete([FromRoute] Guid id)
     {
-        var result = categoryService.Delete(id);
+        string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        var result = categoryService.Delete(id, userId);
         return Ok(result);
     }
 
@@ -47,10 +47,27 @@ public class CategoriesController(ICategoryService categoryService) : Controller
     }
 
     [HttpGet("byuser")]
-    [Authorize]
     public IActionResult GetAllByUserId()
     {
         string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-        var result = categoryService.
+        var result = categoryService.GetAllByUserId(userId);
+        return Ok(result);
+    }
+
+    [HttpGet("byid /{id:guid}")]
+    public IActionResult GetById([FromRoute] Guid id)
+    {
+        string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+        var result = categoryService.GetById(id, userId);
+        return Ok(result);
+    }
+
+    [HttpGet("bytitle/{text}")]
+    public IActionResult GetAllByTitleContains([FromRoute] string text)
+    {
+        string userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        var result = categoryService.GetAllByTitleContains(text, userId);
+        return Ok(result);
     }
 }

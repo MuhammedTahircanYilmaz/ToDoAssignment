@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using ToDoAssignment.Models.Entities;
+using ToDoAssignment.Models.Categories.Entity;
+using ToDoAssignment.Models.Todos.Entity;
+using ToDoAssignment.Models.Users.Entity;
 
 namespace ToDoAssignment.Repository.Contexts;
 
